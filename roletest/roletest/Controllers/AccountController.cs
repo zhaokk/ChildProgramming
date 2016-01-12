@@ -9,12 +9,14 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using roletest.Models;
 
 namespace IdentitySample.Controllers
 {
     [Authorize]
     public class AccountController : Controller
     {
+        private Entities db = new Entities();
         public AccountController()
         {
         }
@@ -139,6 +141,16 @@ namespace IdentitySample.Controllers
         {
             return View();
         }
+        [AllowAnonymous]
+        public ActionResult RegisterTeacher()
+        {
+            return View();
+        }
+        [AllowAnonymous]
+        public ActionResult RegisterStudent()
+        {
+            return View();
+        }
 
         //
         // POST: /Account/Register
@@ -153,11 +165,89 @@ namespace IdentitySample.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    var code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                     var code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking this link: <a href=\"" + callbackUrl + "\">link</a>");
                     ViewBag.Link = callbackUrl;
                     return View("DisplayEmail");
+                }
+                
+                AddErrors(result);
+            }
+
+            // If we got this far, something failed, redisplay form
+            return View(model);
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> RegisterTeacher(RegisterViewModelOfTeacher model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var result = await UserManager.CreateAsync(user, model.Password);
+                if (result.Succeeded)
+                {
+                    Teacher teac = new Teacher();
+                    teac.Address = model.Address;
+                    teac.School = model.School;
+                    teac.UserId = user.Id;
+                    db.Teachers.Add(teac);
+                    db.SaveChanges();
+                    result = await UserManager.AddToRolesAsync(user.Id, "Teacher");
+                    if (!result.Succeeded)
+                    {
+                       
+                    }
+                    else {
+
+                        var code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                        var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                        await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking this link: <a href=\"" + callbackUrl + "\">link</a>");
+                        ViewBag.Link = callbackUrl;
+                        return View("DisplayEmail");
+                    }
+                }
+                AddErrors(result);
+            }
+
+            // If we got this far, something failed, redisplay form
+            return View(model);
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> RegisterStudent(RegisterViewModelOfStudent model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var result = await UserManager.CreateAsync(user, model.Password);
+                if (result.Succeeded)
+                {
+                    Student stud = new Student();
+                    stud.Age = model.age;
+                    stud.Gender = model.Gender;
+                    stud.Id = user.Id;
+                    db.Students.Add(stud);
+                    db.SaveChanges();
+                    result = await UserManager.AddToRolesAsync(user.Id, "Student");
+                    if (!result.Succeeded)
+                    {
+
+                    }
+                    else {
+                        var code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                        var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                        await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking this link: <a href=\"" + callbackUrl + "\">link</a>");
+                        ViewBag.Link = callbackUrl;
+                        return View("DisplayEmail");
+
+                    }
+                
                 }
                 AddErrors(result);
             }

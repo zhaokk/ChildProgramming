@@ -13,5 +13,10 @@ namespace roletest.Controllers
         {
             return View();
         }
+        public ActionResult SectionManagement()
+        {
+            return View();
+        }
+        
     }
 }

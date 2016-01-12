@@ -77,7 +77,34 @@ namespace IdentitySample.Models
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
     }
+    public class RegisterViewModelOfTeacher : RegisterViewModel
+    {
+        [Required]
+        [Display(Name = "School")]
+        public string School { get; set; }
 
+        [Required]
+      
+        [Display(Name = "Address")]
+        public string Address { get; set; }
+
+
+    }
+
+    public class RegisterViewModelOfStudent : RegisterViewModel
+    {
+        [Required]
+        [Display(Name = "Gender")]
+        public bool Gender { get; set; }
+
+        [Required]
+        [Range(1, 120,
+              ErrorMessage = "Age must be between 1 and 120")]
+        [Display(Name = "age")]
+        public int age { get; set; }
+
+
+    }
     public class ResetPasswordViewModel
     {
         [Required]
