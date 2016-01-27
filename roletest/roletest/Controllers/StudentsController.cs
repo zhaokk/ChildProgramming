@@ -113,7 +113,20 @@ namespace roletest.Controllers
             }
             return View(student);
         }
+        public ActionResult LifeCycle()
+        {
 
+            return View();
+        }
+        public ActionResult SaveLifeCycle(string url) {
+
+            return RedirectToAction("gallery", "Students");
+        }
+        [Authorize(Roles = "Student")]
+        public ActionResult Gallery() {
+
+            return View();
+        }
         // POST: Students/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]

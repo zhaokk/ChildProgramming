@@ -20,6 +20,8 @@
         <EntityTypeShape EntityType="Model.C__MigrationHistory" Width="1.5" PointX="0.75" PointY="0.75" />
         <AssociationConnector Association="Model.SectionAndTeacher1" />
         <AssociationConnector Association="Model.StudentAndSection1" />
+        <EntityTypeShape EntityType="Model.LifeCycle" Width="1.5" PointX="7.75" PointY="10.75" />
+        <AssociationConnector Association="Model.FK_LifeCycle_To_student" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

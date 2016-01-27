@@ -33,5 +33,6 @@ namespace roletest.Models
         public virtual DbSet<Student> Students { get; set; }
         public virtual DbSet<Teacher> Teachers { get; set; }
         public virtual DbSet<C__MigrationHistory> C__MigrationHistory { get; set; }
+        public virtual DbSet<LifeCycle> LifeCycles { get; set; }
     }
 }

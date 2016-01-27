@@ -1,0 +1,25 @@
+﻿
+@{
+    ViewBag.Title = "RegisterSelectRole";
+}
+<div class="row">
+    <h2 class="texts" style="text-align:center">Are you a teacher or a student</h2>
+
+    <div class="row">
+        <div class="col-lg-4 col-lg-offset-3 "><a href=@Url.Action("RegisterTeacher","Account")><img class="tea" src="~/Content/image/teacher.png" /></a></div>
+        <div class="scol-lg-4 "><a href=@Url.Action("RegisterTeacher","Account")><img src="~/Content/image/kid.png" class="stu" /></a></div>
+    </div>
+</div>
+</div>
+<script >
+    $(".tea").hover(
+        function () {
+$(".texts").text("teacher")
+        }
+        )
+    $(".stu").hover(
+    function () {
+        $(".texts").text("student")
+    }
+    )
+</script>

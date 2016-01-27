@@ -203,11 +203,153 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\alertifyjs\alertify.css" />
+    <Content Include="Content\alertifyjs\default.css" />
+    <Content Include="Content\image\kid.png" />
+    <Content Include="Content\image\teacher.png" />
+    <Content Include="Content\lifecycle\1.svg" />
+    <Content Include="Content\lifecycle\10.svg" />
+    <Content Include="Content\lifecycle\11.svg" />
+    <Content Include="Content\lifecycle\12.svg" />
+    <Content Include="Content\lifecycle\13.svg" />
+    <Content Include="Content\lifecycle\14.svg" />
+    <Content Include="Content\lifecycle\15.svg" />
+    <Content Include="Content\lifecycle\16.svg" />
+    <Content Include="Content\lifecycle\17.svg" />
+    <Content Include="Content\lifecycle\18.svg" />
+    <Content Include="Content\lifecycle\19.svg" />
+    <Content Include="Content\lifecycle\2.svg" />
+    <Content Include="Content\lifecycle\20.svg" />
+    <Content Include="Content\lifecycle\21.svg" />
+    <Content Include="Content\lifecycle\22.svg" />
+    <Content Include="Content\lifecycle\23.svg" />
+    <Content Include="Content\lifecycle\24.svg" />
+    <Content Include="Content\lifecycle\25.svg" />
+    <Content Include="Content\lifecycle\26.svg" />
+    <Content Include="Content\lifecycle\27.svg" />
+    <Content Include="Content\lifecycle\28.svg" />
+    <Content Include="Content\lifecycle\29.svg" />
+    <Content Include="Content\lifecycle\3.svg" />
+    <Content Include="Content\lifecycle\30.svg" />
+    <Content Include="Content\lifecycle\31.svg" />
+    <Content Include="Content\lifecycle\32.svg" />
+    <Content Include="Content\lifecycle\33.svg" />
+    <Content Include="Content\lifecycle\34.svg" />
+    <Content Include="Content\lifecycle\35.svg" />
+    <Content Include="Content\lifecycle\36.svg" />
+    <Content Include="Content\lifecycle\37.svg" />
+    <Content Include="Content\lifecycle\38.svg" />
+    <Content Include="Content\lifecycle\39.svg" />
+    <Content Include="Content\lifecycle\4.svg" />
+    <Content Include="Content\lifecycle\40.svg" />
+    <Content Include="Content\lifecycle\41.svg" />
+    <Content Include="Content\lifecycle\42.svg" />
+    <Content Include="Content\lifecycle\43.svg" />
+    <Content Include="Content\lifecycle\44.svg" />
+    <Content Include="Content\lifecycle\45.svg" />
+    <Content Include="Content\lifecycle\46.svg" />
+    <Content Include="Content\lifecycle\47.svg" />
+    <Content Include="Content\lifecycle\48.svg" />
+    <Content Include="Content\lifecycle\49.svg" />
+    <Content Include="Content\lifecycle\5.svg" />
+    <Content Include="Content\lifecycle\50.svg" />
+    <Content Include="Content\lifecycle\51.svg" />
+    <Content Include="Content\lifecycle\52.svg" />
+    <Content Include="Content\lifecycle\53.svg" />
+    <Content Include="Content\lifecycle\54.svg" />
+    <Content Include="Content\lifecycle\55.svg" />
+    <Content Include="Content\lifecycle\56.svg" />
+    <Content Include="Content\lifecycle\57.svg" />
+    <Content Include="Content\lifecycle\58.svg" />
+    <Content Include="Content\lifecycle\59.svg" />
+    <Content Include="Content\lifecycle\6.svg" />
+    <Content Include="Content\lifecycle\60.svg" />
+    <Content Include="Content\lifecycle\61.svg" />
+    <Content Include="Content\lifecycle\62.svg" />
+    <Content Include="Content\lifecycle\63.svg" />
+    <Content Include="Content\lifecycle\64.svg" />
+    <Content Include="Content\lifecycle\65.svg" />
+    <Content Include="Content\lifecycle\66.svg" />
+    <Content Include="Content\lifecycle\67.svg" />
+    <Content Include="Content\lifecycle\68.svg" />
+    <Content Include="Content\lifecycle\69.svg" />
+    <Content Include="Content\lifecycle\7.svg" />
+    <Content Include="Content\lifecycle\70.svg" />
+    <Content Include="Content\lifecycle\71.svg" />
+    <Content Include="Content\lifecycle\72.svg" />
+    <Content Include="Content\lifecycle\73.svg" />
+    <Content Include="Content\lifecycle\74.svg" />
+    <Content Include="Content\lifecycle\75.svg" />
+    <Content Include="Content\lifecycle\76.svg" />
+    <Content Include="Content\lifecycle\77.svg" />
+    <Content Include="Content\lifecycle\78.svg" />
+    <Content Include="Content\lifecycle\79.svg" />
+    <Content Include="Content\lifecycle\8.svg" />
+    <Content Include="Content\lifecycle\80.svg" />
+    <Content Include="Content\lifecycle\81.svg" />
+    <Content Include="Content\lifecycle\82.svg" />
+    <Content Include="Content\lifecycle\83.svg" />
+    <Content Include="Content\lifecycle\84.svg" />
+    <Content Include="Content\lifecycle\85.svg" />
+    <Content Include="Content\lifecycle\86.svg" />
+    <Content Include="Content\lifecycle\87.svg" />
+    <Content Include="Content\lifecycle\88.svg" />
+    <Content Include="Content\lifecycle\89.svg" />
+    <Content Include="Content\lifecycle\9.svg" />
+    <Content Include="Content\lifecycle\90.svg" />
+    <Content Include="Content\lifecycle\91.svg" />
+    <Content Include="Content\lifecycle\92.svg" />
+    <Content Include="Content\lifecycle\93.svg" />
+    <Content Include="Content\lifecycle\94.svg" />
+    <Content Include="Content\lifecycle\95.svg" />
+    <Content Include="Content\lifecycle\96.svg" />
+    <Content Include="Content\lifecycle\97.svg" />
+    <Content Include="Content\lifecycle\98.svg" />
+    <Content Include="Content\lifecycle\99.svg" />
+    <Content Include="Content\lifecycle\arrow.png" />
+    <Content Include="Content\lifecycle\Egg.png" />
+    <Content Include="Content\lifecycle\escheresque.png" />
+    <Content Include="Content\lifecycle\frog.png" />
+    <Content Include="Content\lifecycle\honey_im_subtle.png" />
+    <Content Include="Content\lifecycle\pug.jpg" />
+    <Content Include="Content\lifecycle\tadpole.png" />
     <Content Include="packages.config" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="scripts\alertifyjs\alertify.js" />
     <Content Include="scripts\jquery-1.10.2.min.map" />
+    <Content Include="scripts\lifecycle\angular.min.js" />
+    <Content Include="scripts\lifecycle\app_config.js" />
+    <Content Include="scripts\lifecycle\bootstrap.css" />
+    <Content Include="scripts\lifecycle\bootstrap.js" />
+    <Content Include="scripts\lifecycle\button.0d5e5697773e001de689b99d2ba7f0dc.js" />
+    <Content Include="scripts\lifecycle\button.css" />
+    <Content Include="scripts\lifecycle\button.js" />
+    <Content Include="scripts\lifecycle\controller.js" />
+    <Content Include="scripts\lifecycle\cssfamily=Engagement.css" />
+    <Content Include="scripts\lifecycle\cssfamily=Plaster.css" />
+    <Content Include="scripts\lifecycle\fabric%281%29.js" />
+    <Content Include="scripts\lifecycle\fabric.js" />
+    <Content Include="scripts\lifecycle\fabric.js.png" />
+    <Content Include="scripts\lifecycle\follow_button.24a8e21c9032b45e8d193d263743d845.en.html" />
+    <Content Include="scripts\lifecycle\font_definitions.js" />
+    <Content Include="scripts\lifecycle\ga.js" />
+    <Content Include="scripts\lifecycle\github-btn.html" />
+    <Content Include="scripts\lifecycle\gpa.png" />
+    <Content Include="scripts\lifecycle\jquery.js" />
+    <Content Include="scripts\lifecycle\jquery.mousewheel.min.js" />
+    <Content Include="scripts\lifecycle\kitchensink.css" />
+    <Content Include="scripts\lifecycle\load.js" />
+    <Content Include="scripts\lifecycle\master.css" />
+    <Content Include="scripts\lifecycle\master.js" />
+    <Content Include="scripts\lifecycle\paster.js" />
+    <Content Include="scripts\lifecycle\prism.css" />
+    <Content Include="scripts\lifecycle\prism.js" />
+    <Content Include="scripts\lifecycle\saved_resource.html" />
+    <Content Include="scripts\lifecycle\utils.js" />
+    <Content Include="scripts\lifecycle\widget.html" />
+    <Content Include="scripts\lifecycle\widgets.js" />
     <Content Include="Views\Students\Create.cshtml" />
     <Content Include="Views\Students\Delete.cshtml" />
     <Content Include="Views\Students\Details.cshtml" />
@@ -224,6 +366,11 @@
     <Content Include="Views\Sections\Index.cshtml" />
     <Content Include="Views\Sections\getProgress.cshtml" />
     <Content Include="Views\Sections\getStats.cshtml" />
+    <Content Include="Views\LifeCycle\Index.cshtml" />
+    <Content Include="Views\Account\RegisterSelectRole.cshtml" />
+    <Content Include="Views\Students\LifeCycle.cshtml" />
+    <Content Include="scripts\lifecycle\info.json" />
+    <Content Include="Views\Students\Gallery.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -517,6 +664,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LifeCycleController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\RolesAdminController.cs" />
     <Compile Include="Controllers\SectionsController.cs" />
@@ -544,6 +692,9 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\LifeCycle.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Model1.Context.cs">
       <AutoGen>True</AutoGen>
@@ -575,6 +726,7 @@
   <ItemGroup>
     <Folder Include="scripts\blockly\generated\en\" />
     <Folder Include="scripts\blockly\pond\generated\en\" />
+    <Folder Include="scripts\dropzone\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

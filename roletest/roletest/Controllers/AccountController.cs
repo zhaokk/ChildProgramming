@@ -142,6 +142,11 @@ namespace IdentitySample.Controllers
             return View();
         }
         [AllowAnonymous]
+        public ActionResult RegisterSelectRole()
+        {
+            return View();
+        }
+        [AllowAnonymous]
         public ActionResult RegisterTeacher()
         {
             return View();

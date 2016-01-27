@@ -66,6 +66,14 @@
           <Property Name="AccessFailedCount" Type="int" Nullable="false" />
           <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
         </EntityType>
+        <EntityType Name="LifeCycle">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="directory" Type="nvarchar" MaxLength="255" />
+          <Property Name="StudentId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
         <EntityType Name="Section">
           <Key>
             <PropertyRef Name="Id" />
@@ -161,6 +169,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_LifeCycle_To student">
+          <End Role="Student" Type="Self.Student" Multiplicity="1" />
+          <End Role="LifeCycle" Type="Self.LifeCycle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Student">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LifeCycle">
+              <PropertyRef Name="StudentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_SectionAndTeacher_ToTable_1">
           <End Role="Section" Type="Self.Section" Multiplicity="1" />
           <End Role="SectionAndTeacher" Type="Self.SectionAndTeacher" Multiplicity="*" />
@@ -240,6 +260,7 @@
           <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LifeCycle" EntityType="Self.LifeCycle" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Section" EntityType="Self.Section" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SectionAndTeacher" EntityType="Self.SectionAndTeacher" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Student" EntityType="Self.Student" Schema="dbo" store:Type="Tables" />
@@ -260,6 +281,10 @@
           <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LifeCycle_To student" Association="Self.FK_LifeCycle_To student">
+            <End Role="Student" EntitySet="Student" />
+            <End Role="LifeCycle" EntitySet="LifeCycle" />
           </AssociationSet>
           <AssociationSet Name="FK_SectionAndTeacher_ToTable_1" Association="Self.FK_SectionAndTeacher_ToTable_1">
             <End Role="Section" EntitySet="Section" />
@@ -359,6 +384,7 @@
           <Property Name="Age" Type="Int32" />
           <NavigationProperty Name="AspNetUser" Relationship="Self.FK_Student_ToAspNetUsers" FromRole="Student" ToRole="AspNetUsers" />
           <NavigationProperty Name="Sections" Relationship="Model.StudentAndSection1" FromRole="Student" ToRole="Section" />
+          <NavigationProperty Name="LifeCycles" Relationship="Model.FK_LifeCycle_To_student" FromRole="Student" ToRole="LifeCycle" />
         </EntityType>
         <EntityType Name="Teacher">
           <Key>
@@ -463,6 +489,11 @@
             <End Role="Student" EntitySet="Students" />
             <End Role="Section" EntitySet="Sections" />
           </AssociationSet>
+          <EntitySet Name="LifeCycles" EntityType="Model.LifeCycle" />
+          <AssociationSet Name="FK_LifeCycle_To_student" Association="Model.FK_LifeCycle_To_student">
+            <End Role="Student" EntitySet="Students" />
+            <End Role="LifeCycle" EntitySet="LifeCycles" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="C__MigrationHistory">
           <Key>
@@ -481,6 +512,27 @@
         <Association Name="StudentAndSection1">
           <End Type="Model.Student" Role="Student" Multiplicity="*" />
           <End Type="Model.Section" Role="Section" Multiplicity="*" />
+        </Association>
+        <EntityType Name="LifeCycle">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="directory" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="StudentId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Student" Relationship="Model.FK_LifeCycle_To_student" FromRole="LifeCycle" ToRole="Student" />
+        </EntityType>
+        <Association Name="FK_LifeCycle_To_student">
+          <End Type="Model.Student" Role="Student" Multiplicity="1" />
+          <End Type="Model.LifeCycle" Role="LifeCycle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Student">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LifeCycle">
+              <PropertyRef Name="StudentId" />
+            </Dependent>
+          </ReferentialConstraint>
         </Association>
       </Schema>
     </edmx:ConceptualModels>
@@ -593,6 +645,15 @@
               <ScalarProperty Name="Id" ColumnName="StudentId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="LifeCycles">
+            <EntityTypeMapping TypeName="Model.LifeCycle">
+              <MappingFragment StoreEntitySet="LifeCycle">
+                <ScalarProperty Name="StudentId" ColumnName="StudentId" />
+                <ScalarProperty Name="directory" ColumnName="directory" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

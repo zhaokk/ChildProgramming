@@ -18,6 +18,7 @@ namespace roletest.Models
         public Student()
         {
             this.Sections = new HashSet<Section>();
+            this.LifeCycles = new HashSet<LifeCycle>();
         }
     
         public string Id { get; set; }
@@ -27,5 +28,7 @@ namespace roletest.Models
         public virtual AspNetUser AspNetUser { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Section> Sections { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<LifeCycle> LifeCycles { get; set; }
     }
 }
