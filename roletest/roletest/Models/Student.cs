@@ -17,18 +17,17 @@ namespace roletest.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Student()
         {
-            this.Sections = new HashSet<Section>();
             this.LifeCycles = new HashSet<LifeCycle>();
         }
     
         public string Id { get; set; }
         public Nullable<bool> Gender { get; set; }
         public Nullable<int> Age { get; set; }
+        public Nullable<int> SectionId { get; set; }
     
         public virtual AspNetUser AspNetUser { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Section> Sections { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LifeCycle> LifeCycles { get; set; }
+        public virtual Section Section { get; set; }
     }
 }

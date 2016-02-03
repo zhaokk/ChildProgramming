@@ -70,7 +70,8 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="directory" Type="nvarchar" MaxLength="255" />
           <Property Name="StudentId" Type="nvarchar" MaxLength="128" Nullable="false" />
         </EntityType>
@@ -78,16 +79,10 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
-          <Property Name="SectionDetial" Type="nvarchar" MaxLength="500" />
-        </EntityType>
-        <EntityType Name="SectionAndTeacher">
-          <Key>
-            <PropertyRef Name="TeacherId" />
-            <PropertyRef Name="SectionId" />
-          </Key>
-          <Property Name="TeacherId" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="SectionId" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SectionName" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="SectionDetail" Type="nvarchar" MaxLength="500" />
+          <Property Name="TeacherId" Type="nvarchar" MaxLength="128" />
         </EntityType>
         <EntityType Name="Student">
           <Key>
@@ -96,14 +91,7 @@
           <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="Gender" Type="bit" />
           <Property Name="Age" Type="int" />
-        </EntityType>
-        <EntityType Name="StudentAndSection">
-          <Key>
-            <PropertyRef Name="SectionId" />
-            <PropertyRef Name="StudentId" />
-          </Key>
-          <Property Name="SectionId" Type="int" Nullable="false" />
-          <Property Name="StudentId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="SectionId" Type="int" />
         </EntityType>
         <EntityType Name="Teachers">
           <Key>
@@ -181,30 +169,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_SectionAndTeacher_ToTable_1">
-          <End Role="Section" Type="Self.Section" Multiplicity="1" />
-          <End Role="SectionAndTeacher" Type="Self.SectionAndTeacher" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Section">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="SectionAndTeacher">
-              <PropertyRef Name="SectionId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_SectionAndTeacher_ToTeacher">
-          <End Role="Teachers" Type="Self.Teachers" Multiplicity="1" />
-          <End Role="SectionAndTeacher" Type="Self.SectionAndTeacher" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Teachers">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="SectionAndTeacher">
-              <PropertyRef Name="TeacherId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Student_ToAspNetUsers">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
           <End Role="Student" Type="Self.Student" Multiplicity="0..1" />
@@ -217,27 +181,27 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_StudentAndSection_ToAspNetUsers">
-          <End Role="Student" Type="Self.Student" Multiplicity="1" />
-          <End Role="StudentAndSection" Type="Self.StudentAndSection" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Student">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="StudentAndSection">
-              <PropertyRef Name="StudentId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_StudentAndSection_ToTable_1">
-          <End Role="Section" Type="Self.Section" Multiplicity="1" />
-          <End Role="StudentAndSection" Type="Self.StudentAndSection" Multiplicity="*" />
+        <Association Name="FK_Student_ToSection">
+          <End Role="Section" Type="Self.Section" Multiplicity="0..1" />
+          <End Role="Student" Type="Self.Student" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Section">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="StudentAndSection">
+            <Dependent Role="Student">
               <PropertyRef Name="SectionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_teacher">
+          <End Role="Teachers" Type="Self.Teachers" Multiplicity="0..1" />
+          <End Role="Section" Type="Self.Section" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Teachers">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Section">
+              <PropertyRef Name="TeacherId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -262,9 +226,7 @@
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LifeCycle" EntityType="Self.LifeCycle" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Section" EntityType="Self.Section" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="SectionAndTeacher" EntityType="Self.SectionAndTeacher" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Student" EntityType="Self.Student" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="StudentAndSection" EntityType="Self.StudentAndSection" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Teachers" EntityType="Self.Teachers" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
@@ -286,25 +248,17 @@
             <End Role="Student" EntitySet="Student" />
             <End Role="LifeCycle" EntitySet="LifeCycle" />
           </AssociationSet>
-          <AssociationSet Name="FK_SectionAndTeacher_ToTable_1" Association="Self.FK_SectionAndTeacher_ToTable_1">
-            <End Role="Section" EntitySet="Section" />
-            <End Role="SectionAndTeacher" EntitySet="SectionAndTeacher" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SectionAndTeacher_ToTeacher" Association="Self.FK_SectionAndTeacher_ToTeacher">
-            <End Role="Teachers" EntitySet="Teachers" />
-            <End Role="SectionAndTeacher" EntitySet="SectionAndTeacher" />
-          </AssociationSet>
           <AssociationSet Name="FK_Student_ToAspNetUsers" Association="Self.FK_Student_ToAspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="Student" EntitySet="Student" />
           </AssociationSet>
-          <AssociationSet Name="FK_StudentAndSection_ToAspNetUsers" Association="Self.FK_StudentAndSection_ToAspNetUsers">
-            <End Role="Student" EntitySet="Student" />
-            <End Role="StudentAndSection" EntitySet="StudentAndSection" />
-          </AssociationSet>
-          <AssociationSet Name="FK_StudentAndSection_ToTable_1" Association="Self.FK_StudentAndSection_ToTable_1">
+          <AssociationSet Name="FK_Student_ToSection" Association="Self.FK_Student_ToSection">
             <End Role="Section" EntitySet="Section" />
-            <End Role="StudentAndSection" EntitySet="StudentAndSection" />
+            <End Role="Student" EntitySet="Student" />
+          </AssociationSet>
+          <AssociationSet Name="fk_teacher" Association="Self.fk_teacher">
+            <End Role="Teachers" EntitySet="Teachers" />
+            <End Role="Section" EntitySet="Section" />
           </AssociationSet>
           <AssociationSet Name="fk_userId" Association="Self.fk_userId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
@@ -362,29 +316,9 @@
           <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="AspNetUserClaims" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
           <NavigationProperty Name="AspNetUserLogins" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
-          <NavigationProperty Name="Student" Relationship="Self.FK_Student_ToAspNetUsers" FromRole="AspNetUsers" ToRole="Student" />
           <NavigationProperty Name="Teacher" Relationship="Self.fk_userId" FromRole="AspNetUsers" ToRole="Teachers" />
           <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
-        </EntityType>
-        <EntityType Name="Section">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="SectionDetial" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Teachers" Relationship="Model.SectionAndTeacher1" FromRole="Section" ToRole="Teacher" />
-          <NavigationProperty Name="Students" Relationship="Model.StudentAndSection1" FromRole="Section" ToRole="Student" />
-        </EntityType>
-        <EntityType Name="Student">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Gender" Type="Boolean" />
-          <Property Name="Age" Type="Int32" />
-          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_Student_ToAspNetUsers" FromRole="Student" ToRole="AspNetUsers" />
-          <NavigationProperty Name="Sections" Relationship="Model.StudentAndSection1" FromRole="Student" ToRole="Section" />
-          <NavigationProperty Name="LifeCycles" Relationship="Model.FK_LifeCycle_To_student" FromRole="Student" ToRole="LifeCycle" />
+          <NavigationProperty Name="Student" Relationship="Model.FK_Student_ToAspNetUsers" FromRole="AspNetUser" ToRole="Student" />
         </EntityType>
         <EntityType Name="Teacher">
           <Key>
@@ -394,7 +328,7 @@
           <Property Name="School" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Address" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="AspNetUser" Relationship="Self.fk_userId" FromRole="Teachers" ToRole="AspNetUsers" />
-          <NavigationProperty Name="Sections" Relationship="Model.SectionAndTeacher1" FromRole="Teacher" ToRole="Section" />
+          <NavigationProperty Name="Sections" Relationship="Model.fk_teacher" FromRole="Teacher" ToRole="Section" />
         </EntityType>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
@@ -424,18 +358,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Student_ToAspNetUsers">
-          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1" />
-          <End Role="Student" Type="Self.Student" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUsers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Student">
-              <PropertyRef Name="Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="fk_userId">
           <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1" />
           <End Role="Teachers" Type="Self.Teacher" Multiplicity="0..1" />
@@ -457,8 +379,6 @@
           <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaim" />
           <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogin" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUser" />
-          <EntitySet Name="Sections" EntityType="Self.Section" />
-          <EntitySet Name="Students" EntityType="Self.Student" />
           <EntitySet Name="Teachers" EntityType="Self.Teacher" />
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
@@ -467,10 +387,6 @@
           <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Student_ToAspNetUsers" Association="Self.FK_Student_ToAspNetUsers">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="Student" EntitySet="Students" />
           </AssociationSet>
           <AssociationSet Name="fk_userId" Association="Self.fk_userId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
@@ -481,18 +397,24 @@
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
           </AssociationSet>
           <EntitySet Name="C__MigrationHistory" EntityType="Model.C__MigrationHistory" />
-          <AssociationSet Name="SectionAndTeacher1" Association="Model.SectionAndTeacher1">
-            <End Role="Section" EntitySet="Sections" />
-            <End Role="Teacher" EntitySet="Teachers" />
-          </AssociationSet>
-          <AssociationSet Name="StudentAndSection1" Association="Model.StudentAndSection1">
-            <End Role="Student" EntitySet="Students" />
-            <End Role="Section" EntitySet="Sections" />
-          </AssociationSet>
           <EntitySet Name="LifeCycles" EntityType="Model.LifeCycle" />
+          <EntitySet Name="Sections" EntityType="Model.Section" />
+          <EntitySet Name="Students" EntityType="Model.Student" />
+          <AssociationSet Name="FK_Student_ToAspNetUsers" Association="Model.FK_Student_ToAspNetUsers">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="Student" EntitySet="Students" />
+          </AssociationSet>
           <AssociationSet Name="FK_LifeCycle_To_student" Association="Model.FK_LifeCycle_To_student">
             <End Role="Student" EntitySet="Students" />
             <End Role="LifeCycle" EntitySet="LifeCycles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Student_ToSection" Association="Model.FK_Student_ToSection">
+            <End Role="Section" EntitySet="Sections" />
+            <End Role="Student" EntitySet="Students" />
+          </AssociationSet>
+          <AssociationSet Name="fk_teacher" Association="Model.fk_teacher">
+            <End Role="Teacher" EntitySet="Teachers" />
+            <End Role="Section" EntitySet="Sections" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="C__MigrationHistory">
@@ -505,23 +427,51 @@
           <Property Name="Model" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
           <Property Name="ProductVersion" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
         </EntityType>
-        <Association Name="SectionAndTeacher1">
-          <End Type="Model.Section" Role="Section" Multiplicity="*" />
-          <End Type="Model.Teacher" Role="Teacher" Multiplicity="*" />
-        </Association>
-        <Association Name="StudentAndSection1">
-          <End Type="Model.Student" Role="Student" Multiplicity="*" />
-          <End Type="Model.Section" Role="Section" Multiplicity="*" />
-        </Association>
         <EntityType Name="LifeCycle">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Id" Type="Int32" Nullable="false" />
           <Property Name="directory" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="StudentId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Student" Relationship="Model.FK_LifeCycle_To_student" FromRole="LifeCycle" ToRole="Student" />
         </EntityType>
+        <EntityType Name="Section">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SectionName" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="SectionDetail" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="TeacherId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Students" Relationship="Model.FK_Student_ToSection" FromRole="Section" ToRole="Student" />
+          <NavigationProperty Name="Teacher" Relationship="Model.fk_teacher" FromRole="Section" ToRole="Teacher" />
+        </EntityType>
+        <EntityType Name="Student">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Gender" Type="Boolean" />
+          <Property Name="Age" Type="Int32" />
+          <Property Name="SectionId" Type="Int32" />
+          <NavigationProperty Name="AspNetUser" Relationship="Model.FK_Student_ToAspNetUsers" FromRole="Student" ToRole="AspNetUser" />
+          <NavigationProperty Name="LifeCycles" Relationship="Model.FK_LifeCycle_To_student" FromRole="Student" ToRole="LifeCycle" />
+          <NavigationProperty Name="Section" Relationship="Model.FK_Student_ToSection" FromRole="Student" ToRole="Section" />
+        </EntityType>
+        <Association Name="FK_Student_ToAspNetUsers">
+          <End Type="Model.AspNetUser" Role="AspNetUser" Multiplicity="1" />
+          <End Type="Model.Student" Role="Student" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Student">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_LifeCycle_To_student">
           <End Type="Model.Student" Role="Student" Multiplicity="1" />
           <End Type="Model.LifeCycle" Role="LifeCycle" Multiplicity="*" />
@@ -531,6 +481,30 @@
             </Principal>
             <Dependent Role="LifeCycle">
               <PropertyRef Name="StudentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Student_ToSection">
+          <End Type="Model.Section" Role="Section" Multiplicity="0..1" />
+          <End Type="Model.Student" Role="Student" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Section">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Student">
+              <PropertyRef Name="SectionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_teacher">
+          <End Type="Model.Teacher" Role="Teacher" Multiplicity="0..1" />
+          <End Type="Model.Section" Role="Section" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Teacher">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Section">
+              <PropertyRef Name="TeacherId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -585,23 +559,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Sections">
-            <EntityTypeMapping TypeName="Model.Section">
-              <MappingFragment StoreEntitySet="Section">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="SectionDetial" ColumnName="SectionDetial" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Students">
-            <EntityTypeMapping TypeName="Model.Student">
-              <MappingFragment StoreEntitySet="Student">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Gender" ColumnName="Gender" />
-                <ScalarProperty Name="Age" ColumnName="Age" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Teachers">
             <EntityTypeMapping TypeName="Model.Teacher">
               <MappingFragment StoreEntitySet="Teachers">
@@ -629,27 +586,32 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="SectionAndTeacher1" TypeName="Model.SectionAndTeacher1" StoreEntitySet="SectionAndTeacher">
-            <EndProperty Name="Teacher">
-              <ScalarProperty Name="UserId" ColumnName="TeacherId" />
-            </EndProperty>
-            <EndProperty Name="Section">
-              <ScalarProperty Name="Id" ColumnName="SectionId" />
-            </EndProperty>
-          </AssociationSetMapping>
-          <AssociationSetMapping Name="StudentAndSection1" TypeName="Model.StudentAndSection1" StoreEntitySet="StudentAndSection">
-            <EndProperty Name="Section">
-              <ScalarProperty Name="Id" ColumnName="SectionId" />
-            </EndProperty>
-            <EndProperty Name="Student">
-              <ScalarProperty Name="Id" ColumnName="StudentId" />
-            </EndProperty>
-          </AssociationSetMapping>
           <EntitySetMapping Name="LifeCycles">
             <EntityTypeMapping TypeName="Model.LifeCycle">
               <MappingFragment StoreEntitySet="LifeCycle">
+                <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="StudentId" ColumnName="StudentId" />
                 <ScalarProperty Name="directory" ColumnName="directory" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sections">
+            <EntityTypeMapping TypeName="Model.Section">
+              <MappingFragment StoreEntitySet="Section">
+                <ScalarProperty Name="TeacherId" ColumnName="TeacherId" />
+                <ScalarProperty Name="SectionDetail" ColumnName="SectionDetail" />
+                <ScalarProperty Name="SectionName" ColumnName="SectionName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Students">
+            <EntityTypeMapping TypeName="Model.Student">
+              <MappingFragment StoreEntitySet="Student">
+                <ScalarProperty Name="SectionId" ColumnName="SectionId" />
+                <ScalarProperty Name="Age" ColumnName="Age" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

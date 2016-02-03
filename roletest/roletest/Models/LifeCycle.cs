@@ -14,9 +14,10 @@ namespace roletest.Models
     
     public partial class LifeCycle
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
         public string directory { get; set; }
         public string StudentId { get; set; }
+        public string name { get; set; }
     
         public virtual Student Student { get; set; }
     }

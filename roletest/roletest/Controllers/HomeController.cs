@@ -8,7 +8,9 @@ namespace IdentitySample.Controllers
         {
             return View();
         }
-
+        public ActionResult Learn() {
+            return View();
+        }
         [Authorize]
         public ActionResult About()
         {

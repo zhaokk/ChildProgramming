@@ -1,0 +1,75 @@
+﻿@model roletest.Models.Section
+@{
+    ViewBag.Title = "StudentManagement";
+}
+
+<h2>StudentManagement</h2>
+
+<div style="margin-top:15px;margin-bottom:18px;border:2px solid #f1f1f1;border-radius:2px;padding:25px;">
+    <ul style="margin: 19px 0px 18px; visibility: visible;" class="nav nav-tabs test2">
+        <li class=""><a data-toggle="tab" href="#home" aria-expanded="false">Students</a></li>
+        <li class=""><a data-toggle="tab" href="#menu1" aria-expanded="false">Progress</a></li>
+        <li class=""><a data-toggle="tab" href="#menu2" aria-expanded="false">quesions</a></li>
+        <li class="active"><a data-toggle="tab" href="#menu3" aria-expanded="true">LifeCycles</a></li>
+    </ul>
+
+    <div class="tab-content" style="
+         boarder 1px;
+         ">
+        <div id="home" class="tab-pane fade" style="border:1px;">
+            <h3>Students</h3>
+            <div>
+                <p>
+                    @Html.ActionLink("Create New", "CreateStudent",new { sectionId = Model.Id})
+                </p>
+                <table class="table">
+                    <tr>
+                        <th>
+                            Gender
+                        </th>
+                        <th>
+                           Age
+                        </th>
+                        <th>
+                            Email
+                        </th>
+                        <th></th>
+                    </tr>
+
+                    @foreach (var item in Model.Students)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Gender)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Age)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.AspNetUser.Email)
+                            </td>
+                            <td>
+                                @Html.ActionLink("Edit", "Edit","Students", new { id = item.Id },null) |
+                                @Html.ActionLink("Details", "Details", "Students", new { id = item.Id },null) |
+                                @Html.ActionLink("Delete", "Delete", "Students", new { id = item.Id },null)
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+</div>
+        </div>
+        <div id="menu1" class="tab-pane fade">
+            <h3>Progress</h3>
+            <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+        </div>
+        <div id="menu2" class="tab-pane fade">
+            <h3>quesions</h3>
+            <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+        </div>
+        <div id="menu3" class="tab-pane fade active in">
+            <h3>LifeCycles</h3>
+           
+        </div>
+    </div>
+</div>

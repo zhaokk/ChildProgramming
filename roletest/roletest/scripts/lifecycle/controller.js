@@ -270,7 +270,7 @@ function addAccessors($scope) {
 
     var coord = getRandomLeftTop();
 
-    fabric.loadSVGFromURL('../Content/lifecycle/' + shapeName + '.svg', function(objects, options) {
+    fabric.loadSVGFromURL('../Content/lifecycle/svg/' + shapeName + '.svg', function(objects, options) {
 
       var loadedObject = fabric.util.groupSVGElements(objects, options);
 
@@ -539,7 +539,7 @@ function addAccessors($scope) {
         //  window.open(canvas.toDataURL('png'));
         var dataUrl=canvas.toDataURL('png');
         $.post("SaveLifeCycle",{image:dataUrl}, function( data ) {
-            alertify.alert("Data Loaded: " + data);
+            alertify.alert(data);
 })
     }
   };

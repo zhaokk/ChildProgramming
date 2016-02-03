@@ -7,6 +7,9 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using roletest.Models;
+using System.Drawing;
+using System.IO;
+using Microsoft.AspNet.Identity;
 
 namespace roletest.Controllers
 {
@@ -118,12 +121,41 @@ namespace roletest.Controllers
 
             return View();
         }
-        public ActionResult SaveLifeCycle(string url) {
+        public ActionResult SaveLifeCycle(string image) {
+            LifeCycle newLifeCycle = new LifeCycle();
+            int num= db.LifeCycles.Count();
+            var id = num * 100;
+            newLifeCycle.Id = id;
+            var stringId = id.ToString();
+            newLifeCycle.StudentId = User.Identity.GetUserId();
+            newLifeCycle.directory = "../Content/lifecycle/image/" + stringId + ".png";
+            newLifeCycle.name = "sample";
+            db.LifeCycles.Add(newLifeCycle);
+            db.SaveChanges();
+            string subString = image.Substring(22, image.Length-22);
+            byte[] bytes = Convert.FromBase64String(subString);
 
-            return RedirectToAction("gallery", "Students");
+            Image theImage;
+            using (MemoryStream ms = new MemoryStream(bytes))
+            {
+                theImage = Image.FromStream(ms);
+            }
+            string path = @"~/Content/lifecycle/image/" + stringId + ".png";
+            theImage.Save(Server.MapPath(path), System.Drawing.Imaging.ImageFormat.Png);
+            // var i2 = new Bitmap(theImage);
+
+            // i2.Save(Server.MapPath(path), System.Drawing.Imaging.ImageFormat.Png);
+            ViewBag.dir = ".."+path.Substring(1,path.Length-1);
+            return View();
         }
         [Authorize(Roles = "Student")]
         public ActionResult Gallery() {
+            string userid = User.Identity.GetUserId();
+            Student student = db.Students.First(stu => stu.Id == userid);
+            return View(student);
+        }
+        public ActionResult LifeCycleNav() {
+
 
             return View();
         }

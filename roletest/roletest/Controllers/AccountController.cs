@@ -260,6 +260,45 @@ namespace IdentitySample.Controllers
             // If we got this far, something failed, redisplay form
             return View(model);
         }
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> RegisterStudentForSection(RegisterViewModelOfStudentToSection model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var result = await UserManager.CreateAsync(user, model.Password);
+                if (result.Succeeded)
+                {
+                    Student stud = new Student();
+                    stud.Age = model.age;
+                    stud.Gender = model.Gender;
+                    stud.Id = user.Id;
+                    stud.SectionId = model.SectionId;
+                    db.Students.Add(stud);
+                    db.SaveChanges();
+                    result = await UserManager.AddToRolesAsync(user.Id, "Student");
+                    if (!result.Succeeded)
+                    {
+
+                    }
+                    else {
+                        var code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                        var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                        await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking this link: <a href=\"" + callbackUrl + "\">link</a>");
+                        ViewBag.Link = callbackUrl;
+                        return RedirectToAction("StudentManagement", "Teachers",new { id=model.SectionId});
+
+                    }
+
+                }
+                AddErrors(result);
+            }
+
+            // If we got this far, something failed, redisplay form
+            return View(model);
+        }
 
         //
         // GET: /Account/ConfirmEmail

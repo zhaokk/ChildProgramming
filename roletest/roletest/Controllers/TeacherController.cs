@@ -9,7 +9,7 @@ namespace roletest.Controllers
     public class TeacherController : Controller
     {
         // GET: Teacher
-        public ActionResult Index()
+        public ActionResult Sections()
         {
             return View();
         }

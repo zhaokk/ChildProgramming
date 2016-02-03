@@ -105,6 +105,15 @@ namespace IdentitySample.Models
 
 
     }
+    public class RegisterViewModelOfStudentToSection : RegisterViewModelOfStudent
+    {
+        [Required]
+        [Display(Name = "SectionId")]
+        public int SectionId { get; set; }
+
+
+
+    }
     public class ResetPasswordViewModel
     {
         [Required]
