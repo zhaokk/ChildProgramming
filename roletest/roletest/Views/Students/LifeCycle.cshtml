@@ -126,7 +126,7 @@
             <h3>&nbsp;
             <span class="label label-default">
                 LifeCycle name:</span></h3>
-         <input id="title" class="form-control" value="sample" type="text">
+            &nbsp;<input id="title" class="form-control" value="sample" type="text">
 </div>
         <div id="commands" ng-click="maybeLoadShape($event)">
             <ul class="nav nav-tabs">
@@ -259,6 +259,11 @@
                     </ul>
                 </div>
                 <div class="tab-pane active" id="simple-shapes">
+                    <p>Adding <strong>life cycle arrow</strong> to canvas:</p>
+                    <p>
+                        <button id="arrow" type="button" class="btn image1" ng-click="addImageArrow()">Green Arrow</button>
+                        <button type="button" class="btn image1" ng-click="addImageArrow()">Blue Arrow</button>
+                    </p>
                     <p>Using <strong>life cycle template</strong> to canvas:</p>
                     <p>
 
@@ -272,13 +277,13 @@
 <p>
                         <button class="btn" ng-click="addText()">Add text</button>
                     </p>
-                    <p>Add <strong>images</strong> to canvas:</p>
+                    <p>Add <strong>Sample images</strong> to canvas:</p>
                     <p>
-                        <button type="button" class="btn image1" ng-click="addImage1()">pug</button>
-                        <button type="button" class="btn image2" ng-click="addImage2()">tadpole</button>
-                        <button type="button" class="btn image3" ng-click="addImage3()">frog</button>
+                        <button type="button" id="egg" class="btn image1" ng-click="addImage1()">Egg</button>
+                        <button type="button" id="tadpole" class="btn image2" ng-click="addImage2()">tadpole</button>
+                        <button type="button" id="frog" class="btn image3" ng-click="addImage3()">frog</button>
                     </p>
-                    <p>Add <strong>gradient-based shapes</strong> to canvas:</p>
+                    @*<p>Add <strong>gradient-based shapes</strong> to canvas:</p>
                     <p>
                         <button class="btn shape" id="shape74">Gradient 1</button>
                         <button class="btn shape" id="shape66">Gradient 2</button>
@@ -297,9 +302,9 @@
                     </p>
                     <p>
                         <button class="btn shape" id="shape54">Image</button>
-                    </p>
+                    </p>*@
                     <p>
-                        <div id="dropzone">DROP!<button onclick="$('#load').click()">Or click</button></div>
+                        <div id="dropzone jumbotron">DROP!<button onclick="$('#load').click()">Or click</button></div>
                         <input id="load" style="visibility: collapse; width: 0px;" type="file" onchange="upload(this.files[0])">
                     </p>
                     <script>
@@ -323,7 +328,7 @@
                     </script>
                     <style>
                         #dropzone {
-                            border: 10px solid black;
+                            //border: 10px solid black;
                             line-height: 100px;
                             width: 200px;
                             font-size: 40px;
@@ -630,3 +635,103 @@ else {
     alertify.alert("You haven't log in, record wont be saved");
     </script>
 }
+<script>
+    flag = true;
+    var i=0
+    //step 1 change the name of the life cycle
+    var canDismiss = false;
+    var notification = alertify.success('STEP 1:Change the name of the lifeCycle');
+    notification.ondismiss = function () { return canDismiss; };
+    //setTimeout(function () { canDismiss = true; }, 5000);
+    $("#title").change(function () {
+        if (canDismiss == false) {
+            canDismiss = true;
+            setTimeout(function () { notification.dismiss(); }, 2000);
+            step2Noti(step3Noti);
+           
+        }
+       
+    })
+    //step 2 add an arrow
+    function step2Noti(callback) {
+        // arrow=true
+        
+        i=i+2;
+        var step2dis = false;
+        var step2 = alertify.success('STEP '+i+' :Add one arrow to the canvas');
+        step2.ondismiss = function () { return step2dis; };
+        $("#arrow").click(function () {
+          
+               // arrow = false;
+                step2dis = true;
+                setTimeout(function () { notification.dismiss(); }, 2000);
+                callback();
+         
+          
+        })
+        
+    }
+    //step 3 add an egg
+    function step3Noti() {
+        if (i < 3) { 
+        flag = true;
+        var step3dis = false;
+        var step3 = alertify.success('STEP 3:Add an egg to the life cycle');
+        step3.ondismiss = function () { return step3dis; };
+        $("#egg").click(function () {
+          
+                fla = false;
+                step3dis = true;
+                setTimeout(function () { notification.dismiss(); }, 2000);
+               
+                step2Noti(step4Noti);
+             
+            
+            
+        })
+        }
+    }
+        //step 4 add an tadpole
+    function step4Noti() {
+        if (i < 5) {
+            var step4dis = false;
+            var step4 = alertify.success('STEP 5:Add an tadpole to the life cycle');
+            step4.ondismiss = function () { return step4dis; };
+            $("#tadpole").click(function () {
+                step4dis = true;
+                setTimeout(function () { notification.dismiss(); }, 2000);
+                step2Noti(step5Noti);
+            })
+
+        }
+    }
+        //step 5 add an frog
+    function step5Noti() {
+        if (i < 7) {
+            var step5dis = false;
+            var step5 = alertify.success('STEP7:Add an frog to the life cycle');
+            step5.ondismiss = function () { return step5dis; };
+            $("#frog").click(function () {
+                step5dis = true;
+                setTimeout(function () { notification.dismiss(); }, 2000);
+                step6Noti();
+            })
+        }
+
+        }
+  
+        //step 10 save image
+        function step6Noti() {
+            var step6dis=false;
+            var step6 = alertify.success('STEP 9:save the lifeCycle to the gallery');
+            step6.ondismiss = function () { return step6dis; };
+            $("#rasterize").click(function () {
+                step6dis = true;
+                setTimeout(function () { notification.dismiss(); }, 2000);
+                alertify.message('STEP 9:save the lifeCycle to the gallery');
+            })
+         
+
+        }
+  
+</script>

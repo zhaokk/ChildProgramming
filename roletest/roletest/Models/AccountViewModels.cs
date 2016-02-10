@@ -103,6 +103,8 @@ namespace IdentitySample.Models
         [Display(Name = "age")]
         public int age { get; set; }
 
+        [Display(Name = "School name")]
+        public string schoolName { get; set; }
 
     }
     public class RegisterViewModelOfStudentToSection : RegisterViewModelOfStudent

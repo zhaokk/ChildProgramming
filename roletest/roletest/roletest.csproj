@@ -332,6 +332,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="scripts\alertifyjs\alertify.js" />
+    <Content Include="scripts\flip\jquery.flip.js" />
     <Content Include="scripts\gallery\jssor.slider.min.js" />
     <Content Include="scripts\jquery-1.10.2.min.map" />
     <Content Include="scripts\lifecycle\angular.min.js" />
@@ -365,6 +366,7 @@
     <Content Include="scripts\lifecycle\utils.js" />
     <Content Include="scripts\lifecycle\widget.html" />
     <Content Include="scripts\lifecycle\widgets.js" />
+    <Content Include="scripts\copy_references - Copy.js" />
     <Content Include="Views\Students\Create.cshtml" />
     <Content Include="Views\Students\Delete.cshtml" />
     <Content Include="Views\Students\Details.cshtml" />
@@ -644,7 +646,6 @@
     <Content Include="scripts\modernizr-2.6.2.js" />
     <Content Include="scripts\respond.js" />
     <Content Include="scripts\respond.min.js" />
-    <None Include="scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Web.config" />

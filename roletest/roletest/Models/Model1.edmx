@@ -65,6 +65,7 @@
           <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
           <Property Name="AccessFailedCount" Type="int" Nullable="false" />
           <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="newUser" Type="bit" />
         </EntityType>
         <EntityType Name="LifeCycle">
           <Key>
@@ -92,6 +93,7 @@
           <Property Name="Gender" Type="bit" />
           <Property Name="Age" Type="int" />
           <Property Name="SectionId" Type="int" />
+          <Property Name="schoolName" Type="nvarchar" MaxLength="128" />
         </EntityType>
         <EntityType Name="Teachers">
           <Key>
@@ -319,6 +321,7 @@
           <NavigationProperty Name="Teacher" Relationship="Self.fk_userId" FromRole="AspNetUsers" ToRole="Teachers" />
           <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
           <NavigationProperty Name="Student" Relationship="Model.FK_Student_ToAspNetUsers" FromRole="AspNetUser" ToRole="Student" />
+          <Property Name="newUser" Type="Boolean" />
         </EntityType>
         <EntityType Name="Teacher">
           <Key>
@@ -459,6 +462,7 @@
           <NavigationProperty Name="AspNetUser" Relationship="Model.FK_Student_ToAspNetUsers" FromRole="Student" ToRole="AspNetUser" />
           <NavigationProperty Name="LifeCycles" Relationship="Model.FK_LifeCycle_To_student" FromRole="Student" ToRole="LifeCycle" />
           <NavigationProperty Name="Section" Relationship="Model.FK_Student_ToSection" FromRole="Student" ToRole="Section" />
+          <Property Name="schoolName" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_Student_ToAspNetUsers">
           <End Type="Model.AspNetUser" Role="AspNetUser" Multiplicity="1" />
@@ -544,6 +548,7 @@
           <EntitySetMapping Name="AspNetUsers">
             <EntityTypeMapping TypeName="Model.AspNetUser">
               <MappingFragment StoreEntitySet="AspNetUsers">
+                <ScalarProperty Name="newUser" ColumnName="newUser" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
@@ -609,6 +614,7 @@
           <EntitySetMapping Name="Students">
             <EntityTypeMapping TypeName="Model.Student">
               <MappingFragment StoreEntitySet="Student">
+                <ScalarProperty Name="schoolName" ColumnName="schoolName" />
                 <ScalarProperty Name="SectionId" ColumnName="SectionId" />
                 <ScalarProperty Name="Age" ColumnName="Age" />
                 <ScalarProperty Name="Gender" ColumnName="Gender" />

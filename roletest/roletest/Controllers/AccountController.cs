@@ -78,7 +78,7 @@ namespace IdentitySample.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
+                    return RedirectToLocalWithNoti(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
@@ -274,6 +274,7 @@ namespace IdentitySample.Controllers
                     Student stud = new Student();
                     stud.Age = model.age;
                     stud.Gender = model.Gender;
+                    stud.schoolName = model.schoolName;
                     stud.Id = user.Id;
                     stud.SectionId = model.SectionId;
                     db.Students.Add(stud);
@@ -557,6 +558,14 @@ namespace IdentitySample.Controllers
                 return Redirect(returnUrl);
             }
             return RedirectToAction("Index", "Home");
+        }
+        private ActionResult RedirectToLocalWithNoti(string returnUrl)
+        {
+            if (Url.IsLocalUrl(returnUrl))
+            {
+                return Redirect(returnUrl);
+            }
+            return RedirectToAction("Index", "Home",new { noti = true});
         }
 
         internal class ChallengeResult : HttpUnauthorizedResult

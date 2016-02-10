@@ -512,7 +512,7 @@ function addAccessors($scope) {
   }
   
   $scope.addImage1 = function() {
-    addImage('Egg.png', 0.1, 0.1);
+    addImage('Egg.png', 0.2, 0.2);
   };
 
   $scope.addImage2 = function() {
@@ -522,7 +522,9 @@ function addAccessors($scope) {
   $scope.addImage3 = function() {
     addImage('frog.png', 0.5, 0.75);
   };
-
+  $scope.addImageArrow = function () {
+      addImage('arrow.png', 0.1, 0.1);
+  };
 
 
   $scope.confirmClear = function() {

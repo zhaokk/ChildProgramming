@@ -24,6 +24,7 @@ namespace roletest.Models
         public Nullable<bool> Gender { get; set; }
         public Nullable<int> Age { get; set; }
         public Nullable<int> SectionId { get; set; }
+        public string schoolName { get; set; }
     
         public virtual AspNetUser AspNetUser { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
