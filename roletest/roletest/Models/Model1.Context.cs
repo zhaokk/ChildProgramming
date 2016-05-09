@@ -34,5 +34,6 @@ namespace roletest.Models
         public virtual DbSet<LifeCycle> LifeCycles { get; set; }
         public virtual DbSet<Section> Sections { get; set; }
         public virtual DbSet<Student> Students { get; set; }
+        public virtual DbSet<post> posts { get; set; }
     }
 }

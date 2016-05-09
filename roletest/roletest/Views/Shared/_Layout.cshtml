@@ -101,7 +101,7 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">             
-                    <li>@Html.ActionLink("Learn", "Learn", "Home")</li>
+                    <li>@Html.ActionLink("Learn", "index", "posts")</li>
                     <li>@Html.ActionLink("Teach", "ManageSections", "Teachers")</li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
@@ -138,7 +138,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            <p>&copy; @DateTime.Now.Year - CODEBAR Application</p>
         </footer>
     </div>
 

@@ -5,7 +5,7 @@
     var i = 0;
 }
 
-<h2>Gallery</h2>
+
 <script type="text/javascript" src="../scripts/gallery/jssor.slider.min.js"></script>
 <hr>
 <script>
@@ -108,7 +108,24 @@
     .jssora05r:hover {
         background-position: -190px -40px;
     }
-
+    .img-thumbnail {
+        z-index:-5;
+    }
+   
+    .title span{
+        opacity:0.8;
+            position: absolute;
+    top: 386px;
+    color: white; 
+   font: bold 24px/45px Helvetica, Sans-Serif; 
+   letter-spacing: -1px;  
+   background: rgb(0, 0, 0); /* fallback color */
+   background: rgba(0, 0, 0, 0.7);
+   padding-right: 10px; 
+     padding-left: 10px; 
+         border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+    }
     .jssora05l.jssora05ldn {
         background-position: -250px -40px;
     }
@@ -208,8 +225,8 @@
         @foreach (var pic in Model.LifeCycles)
         {
             <div data-p="150.00" style="display: none;">
-                <img data-u="image" class="img-responsive img-thumbnail" src="@pic.directory" width="500px" alt="">
-
+                <img data-u="image" class="img-responsive img-thumbnail" src="@pic.directory" width="500px" alt="@pic.name">
+                <p class="title"><span>@pic.name</span></p>
 
                 <img data-u="thumb" src="@pic.directory" width="99px" />
             </div>
@@ -235,7 +252,8 @@
     <a href="http://www.jssor.com" style="display:none">Slideshow Maker</a>
 </div>
 <script>
-        jssor_1_slider_init();
+    jssor_1_slider_init();
+
 </script>
 
 

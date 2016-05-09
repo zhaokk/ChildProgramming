@@ -65,7 +65,7 @@
           <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
           <Property Name="AccessFailedCount" Type="int" Nullable="false" />
           <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
-          <Property Name="newUser" Type="bit" />
+          <Property Name="newUser" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="LifeCycle">
           <Key>
@@ -75,6 +75,17 @@
           <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="directory" Type="nvarchar" MaxLength="255" />
           <Property Name="StudentId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="post">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="description" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="icon" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="content" Type="text" />
+          <Property Name="url" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Section">
           <Key>
@@ -227,6 +238,7 @@
           <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LifeCycle" EntityType="Self.LifeCycle" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="post" EntityType="Self.post" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Section" EntityType="Self.Section" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Student" EntityType="Self.Student" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Teachers" EntityType="Self.Teachers" Schema="dbo" store:Type="Tables" />
@@ -321,7 +333,7 @@
           <NavigationProperty Name="Teacher" Relationship="Self.fk_userId" FromRole="AspNetUsers" ToRole="Teachers" />
           <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
           <NavigationProperty Name="Student" Relationship="Model.FK_Student_ToAspNetUsers" FromRole="AspNetUser" ToRole="Student" />
-          <Property Name="newUser" Type="Boolean" />
+          <Property Name="newUser" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="Teacher">
           <Key>
@@ -419,6 +431,7 @@
             <End Role="Teacher" EntitySet="Teachers" />
             <End Role="Section" EntitySet="Sections" />
           </AssociationSet>
+          <EntitySet Name="posts" EntityType="Model.post" />
         </EntityContainer>
         <EntityType Name="C__MigrationHistory">
           <Key>
@@ -512,6 +525,17 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="post">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="description" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="icon" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="content" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="url" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -618,6 +642,18 @@
                 <ScalarProperty Name="SectionId" ColumnName="SectionId" />
                 <ScalarProperty Name="Age" ColumnName="Age" />
                 <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="posts">
+            <EntityTypeMapping TypeName="Model.post">
+              <MappingFragment StoreEntitySet="post">
+                <ScalarProperty Name="url" ColumnName="url" />
+                <ScalarProperty Name="content" ColumnName="content" />
+                <ScalarProperty Name="icon" ColumnName="icon" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

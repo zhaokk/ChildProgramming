@@ -851,7 +851,7 @@
   background: rgba(252, 248, 215, 0.95);
 }
 .alertify-notifier.ajs-top {
-  top: 10px;
+  top: 250px;
 }
 .alertify-notifier.ajs-bottom {
   bottom: 10px;

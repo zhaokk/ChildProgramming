@@ -47,3 +47,11 @@ input[type="checkbox"].input-validation-error {
 /*h2 {
 font-size:30px !important;
 }*/
+#lifeCycle {
+      float: left;
+  
+    margin-right: 50px;
+}
+.nav-tabs {
+margin-bottom:15px;
+}

@@ -22,6 +22,7 @@
         <AssociationConnector Association="Model.FK_LifeCycle_To_student" />
         <AssociationConnector Association="Model.FK_Student_ToSection" />
         <AssociationConnector Association="Model.fk_teacher" />
+        <EntityTypeShape EntityType="Model.post" Width="1.5" PointX="1" PointY="1" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
